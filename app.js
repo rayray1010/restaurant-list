@@ -44,9 +44,12 @@ app.get('/', (req, res) => {
 })
 
 // restaurant-info routes setting
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-  res.render('show', { restaurant })
+app.get('/restaurants/:restaurantId', (req, res) => {
+  const id = req.params.restaurantId
+  return Restaurant.findById(id)
+    .lean()
+    .then(restaurant => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
 })
 
 // search results routes setting
