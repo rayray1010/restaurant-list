@@ -6,8 +6,14 @@ const express = require('express')
 const app = express()
 const port = 3000
 
+// 載入express-handlebars
+const exphbs = require('express-handlebars')
+
 // 載入mongoose
 const mongoose = require('mongoose')
+
+// 載入Restaurant model
+const Restaurant = require('./models/restaurant')
 
 // setting mongoose
 mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -22,9 +28,6 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-// 載入express-handlebars
-const exphbs = require('express-handlebars')
-
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
@@ -34,7 +37,10 @@ app.use(express.static('public'))
 
 // general routes setting
 app.get('/', (req, res) => {
-  res.render('index', { restaurant: restaurantList.results })
+  Restaurant.find()
+    .lean()
+    .then(restaurant => res.render('index', { restaurant }))
+    .catch(error => console.log(error))
 })
 
 // restaurant-info routes setting
