@@ -6,8 +6,21 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-// 載入存有restaurant-list的JSON檔
-const restaurantList = require('./restaurant.json')
+// 載入mongoose
+const mongoose = require('mongoose')
+
+// setting mongoose
+mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
+
+// return mongodb connect info
+const db = mongoose.connection
+db.on('error', () => {
+  console.log('mongodb error!')
+})
+
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
 
 // 載入express-handlebars
 const exphbs = require('express-handlebars')
