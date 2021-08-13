@@ -32,5 +32,16 @@
       <img class="rounded mx-auto d-block mb-4 w-100" src="{{restaurant.image}}" alt="{{restaurant.name}}"
         style="max-width: 600px;">
     </div>
+    <div class="col-12 col-md-10 mb-5 mx-auto text-center">
+      <a href="/restaurants/{{restaurant._id}}/edit">
+        <button class="btn btn-primary mr-2">Edit</button>
+      </a>
+      <a href="/restaurants/{{restaurant._id}}/delete">
+        <button class="btn btn-danger mr-2">Delete</button>
+      </a>
+      <a href="/">
+        <button class="btn btn-secondary mr-2">Back</button>
+      </a>
+    </div>
   </div>
 </div>

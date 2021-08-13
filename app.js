@@ -112,6 +112,15 @@ app.post('/restaurants/:restaurantId/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// delete restaurant route setting
+app.get('/restaurants/:restaurantId/delete', (req, res) => {
+  const id = req.params.restaurantId
+  return Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
 // search results routes setting
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword.toLowerCase()
