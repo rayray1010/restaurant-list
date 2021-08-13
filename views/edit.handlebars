@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-12 text-center">
+      <h1>修改餐廳資訊</h1>
+      <p class="text-danger">*為必填欄位</p>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-10 mx-auto">
+      <form action="/restaurants/{{restaurant._id}}/edit" method="POST">
+        <div class="form-group row mb-3">
+          <label for="name" class="col-sm-2 col-form-label-lg">餐廳名稱</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="name" name="name" value="{{restaurant.name}}" required>
+          </div>
+          <label for="name" class="col-1 col-form-label-lg text-danger">*</label>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label for="name_en" class="col-sm-2 col-form-label-lg">餐廳英文名稱</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="name_en" name="name_en" value="{{restaurant.name_en}}">
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label for="category" class="col-sm-2 col-form-label-lg">餐廳類別</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="category" name="category" value="{{restaurant.category}}"
+              required>
+          </div>
+          <label for="category" class="col-sm-1 col-form-label-lg text-danger">*</label>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label for="image" class="col-sm-2 col-form-label-lg">餐廳照片網址</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="image" name="image" value="{{restaurant.image}}" required>
+          </div>
+          <label for="image" class="col-sm-1 col-form-label-lg text-danger">*</label>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label for="location" class="col-sm-2 col-form-label-lg">餐廳地址</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="location" name="location" value="{{restaurant.location}}">
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label for="phone" class="col-sm-2 col-form-label-lg">餐廳電話</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="phone" name="phone" value="{{restaurant.phone}}">
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label for="google_map" class="col-sm-2 col-form-label-lg">Google map</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="google_map" name="google_map" value="{{restaurant.google_map}}">
+          </div>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label for="rating" class="col-sm-2 col-form-label-lg">餐廳評分</label>
+          <div class="col-sm-9">
+            <input type="number" class="form-control" id="rating" name="rating" min="0" max="5" step="0.1"
+              value="{{restaurant.rating}}" required>
+          </div>
+          <label for="rating" class="col-sm-1 col-form-label-lg text-danger">*</label>
+        </div>
+
+        <div class="form-group row mb-3">
+          <label for="description" class="col-sm-2 col-form-label-lg">餐廳簡介</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" id="description" name="description"
+              value="{{restaurant.description}}">
+          </div>
+        </div>
+
+        <div class="row justify-content-center mb-5">
+          <button class="btn btn-primary" type="submit">Save</button>
+          <a href="/" class="ml-3">
+            <button class="btn btn-secondary">Back</button>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
