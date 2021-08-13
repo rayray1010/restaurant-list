@@ -11,6 +11,7 @@ const exphbs = require('express-handlebars')
 
 // 載入mongoose
 const mongoose = require('mongoose')
+const restaurant = require('./models/restaurant')
 
 // 載入Restaurant model
 const Restaurant = require('./models/restaurant')
@@ -123,9 +124,12 @@ app.get('/restaurants/:restaurantId/delete', (req, res) => {
 
 // search results routes setting
 app.get('/search', (req, res) => {
-  const keyword = req.query.keyword.toLowerCase()
-  const restaurant = restaurantList.results.filter(restaurant => restaurant.name.toLowerCase().includes(keyword) || restaurant.category.includes(keyword)) // 「餐廳名字」或「餐廳類別」有包含關鍵字，就存入變數restaurant中
-  res.render('index', { restaurant, keyword })
+  const keyword = req.query.keyword
+  const keywordRegex = new RegExp(keyword, 'i')
+  return Restaurant.find({ $or: [{ name: { $regex: keywordRegex } }, { category: { $regex: keywordRegex } }] })
+    .lean()
+    .then(restaurant => res.render('index', { restaurant, keyword }))
+    .catch(error => console.log(error))
 })
 
 // Listen the server when it started
