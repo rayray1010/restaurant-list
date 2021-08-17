@@ -16,6 +16,9 @@ const restaurant = require('./models/restaurant')
 // 載入Restaurant model
 const Restaurant = require('./models/restaurant')
 
+// 載入method-override
+const methodOverride = require('method-override')
+
 // setting mongoose
 mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -38,6 +41,9 @@ app.set('view engine', 'handlebars')
 
 // setting static files
 app.use(express.static('public'))
+
+// setting method-override
+app.use(methodOverride('_method'))
 
 // general routes setting
 app.get('/', (req, res) => {
@@ -85,7 +91,7 @@ app.get('/restaurants/:restaurantId/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.post('/restaurants/:restaurantId/edit', (req, res) => {
+app.put('/restaurants/:restaurantId', (req, res) => {
   const id = req.params.restaurantId
   const name = req.body.name
   const name_en = req.body.name_en
@@ -114,7 +120,7 @@ app.post('/restaurants/:restaurantId/edit', (req, res) => {
 })
 
 // delete restaurant route setting
-app.get('/restaurants/:restaurantId/delete', (req, res) => {
+app.delete('/restaurants/:restaurantId', (req, res) => {
   const id = req.params.restaurantId
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())
