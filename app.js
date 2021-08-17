@@ -9,31 +9,17 @@ const port = 3000
 // 載入express-handlebars
 const exphbs = require('express-handlebars')
 
-// 載入mongoose
-const mongoose = require('mongoose')
-const restaurant = require('./models/restaurant')
-
 // 載入method-override
 const methodOverride = require('method-override')
 
 // 載入routes
 const routes = require('./routes')
 
-// setting mongoose
-mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
+// 載入mongoose 設定檔
+require('./config/mongoose')
 
 // setting body-parser
 app.use(express.urlencoded({ extended: true }))
-
-// return mongodb connect info
-const db = mongoose.connection
-db.on('error', () => {
-  console.log('mongodb error!')
-})
-
-db.once('open', () => {
-  console.log('mongodb connected!')
-})
 
 // setting template engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
