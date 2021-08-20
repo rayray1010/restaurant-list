@@ -12,6 +12,7 @@ This website provides user with functions to create, read, update, and delete re
 * The user can click the `新增餐廳 button` to create a new restaurant with some necessary information(ex: name, image, category, and rating).
 * The user can click the `edit button` to edit information about the restaurant.
 * The user can click the `delete button` to delete the restaurant card.
+* The user can click the `排列方式` to select the order of the restaurant.
 * The user can search for a specific restaurant by entering the name or category in the search bar.
 
 ## How to Use
