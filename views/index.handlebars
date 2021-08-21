@@ -2,7 +2,7 @@
 <div class="container search-bar">
   <div class="search-bar-outer">
     <div class="search-bar-inner">
-      <form action="/search">
+      <form action="/restaurants/search">
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
           <input type="search" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
@@ -19,18 +19,23 @@
 <!-- sort list -->
 <div class="container mt-3">
   <div class="row">
-    <div class="dropdown col-12 text-right">
-      <button class="btn btn-secondary btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        排序方式
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="/sort/asc">A -> Z</a>
-        <a class="dropdown-item" href="/sort/desc">Z -> A</a>
-        <a class="dropdown-item" href="/sort/category">類別</a>
-        <a class="dropdown-item" href="/sort/location">地區</a>
+    <form class="col-12 row align-items-center justify-content-end" action="/restaurants/sort">
+      <div class="col-auto">
+        <div class="custom-control custom-radio custom-control-inline" id="order-items">
+          <input class="form-check-input" type="radio" id="asc" value="" name="order" {{#if asc}}checked{{/if}}>
+          <label class="form-check-label" for="asc">▲</label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline" id="order-items">
+          <input class="form-check-input" type="radio" id="desc" value="-" name="order" {{#if desc}}checked{{/if}}>
+          <label class="form-check-label" for="desc">▼</label>
+        </div>
       </div>
-    </div>
+      <select class="col-sm-3 col-lg-1 custom-select custom-select-sm mr-4" name="sort" id="sort">
+        <option value="name" {{#if name}}selected{{/if}}>餐廳名稱</option>
+        <option value="rating" {{#if rating}}selected{{/if}}>評分</option>
+      </select>
+      <button class="col-lg-1 col-sm-2 btn btn-info" type="submit">排序</button>
+    </form>
   </div>
 </div>
 

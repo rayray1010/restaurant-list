@@ -64,5 +64,43 @@ router.delete('/:restaurantId', (req, res) => {
     .catch(error => console.log(error))
 })
 
+// sort routes setting
+router.get('/sort', (req, res) => {
+  let order = req.query.order
+  let asc = ''
+  let desc = ''
+  switch (order) {
+    case '': asc = true
+      break;
+    case '-': desc = true
+      break;
+  }
+  let sort = req.query.sort
+  let name = ''
+  let rating = ''
+  switch (sort) {
+    case 'name': name = true
+      break;
+    case 'rating': rating = true
+  }
+  sort = order + sort // 如果order是desc，傳入底下sort中就會是"-name" or "-rating"就會進行降冪排列
+
+  return Restaurant.find()
+    .lean()
+    .sort(sort)
+    .then(restaurant => res.render('index', { restaurant, name, rating, asc, desc }))
+    .catch(error => console.log(error))
+})
+
+// search results routes setting
+router.get('/search', (req, res) => {
+  const keyword = req.query.keyword
+  const keywordRegex = new RegExp(keyword, 'i')
+  return Restaurant.find({ $or: [{ name: { $regex: keywordRegex } }, { category: { $regex: keywordRegex } }] })
+    .lean()
+    .then(restaurant => res.render('index', { restaurant, keyword }))
+    .catch(error => console.log(error))
+})
+
 // 匯出router
 module.exports = router
