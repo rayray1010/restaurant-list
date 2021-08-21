@@ -1,7 +1,7 @@
-# Restaurant-List 1.0
+# Restaurant-List 1.1
 This website provides user with functions to create, read, update, and delete restaurant information.
 
-![image](https://github.com/tkoleo84119/restaurant-list/blob/cea907caaac753302ef53287da60ba6d750fd248/Home%20page.png)!
+![image](https://github.com/tkoleo84119/restaurant-list/blob/6b155488d9a320ffe423dc7852addee7b5588b6a/Home%20page.png)!
 ![image](https://github.com/tkoleo84119/restaurant-list/blob/cea907caaac753302ef53287da60ba6d750fd248/Create%20page.png)!
 ![image](https://github.com/tkoleo84119/restaurant-list/blob/cea907caaac753302ef53287da60ba6d750fd248/Edit%20page.png)!
 ![image](https://github.com/tkoleo84119/restaurant-list/blob/cea907caaac753302ef53287da60ba6d750fd248/Detail%20page.png)!
