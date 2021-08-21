@@ -6,18 +6,18 @@ const Schema = mongoose.Schema
 const restaurantSchema = new Schema({
   name: {
     type: String,
-    require: true
+    required: true
   },
   name_en: {
     type: String,
   },
   category: {
     type: String,
-    require: true
+    required: true
   },
   image: {
     type: String,
-    require: true
+    required: true
   },
   location: {
     type: String,
@@ -32,7 +32,7 @@ const restaurantSchema = new Schema({
     type: Number,
     min: 0,
     max: 5,
-    require: true
+    required: true
   },
   description: {
     type: String,
