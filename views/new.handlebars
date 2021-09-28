@@ -1,88 +1,111 @@
 <div class="container">
-  <div class="row mt-3">
-    <div class="col-12 text-center">
+  <div class="row mx-auto justify-content-center my-3">
+    <div class="col-10 text-center">
       <h1>新增餐廳</h1>
       <p class="text-danger">*為必填欄位</p>
     </div>
   </div>
+</div>
 
-  <div class="row mt-3">
-    <div class="col-10 mx-auto">
-      <form action="/restaurants" method="POST">
-        <div class="form-group row mb-3">
-          <label for="name" class="col-sm-2 col-form-label-lg">餐廳名稱</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="name" name="name" placeholder="店名" required>
-          </div>
-          <label for="name" class="col-1 col-form-label-lg text-danger">*</label>
-        </div>
 
-        <div class="form-group row mb-3">
-          <label for="name_en" class="col-sm-2 col-form-label-lg">餐廳英文名稱</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="name_en" name="name_en" placeholder="英文店名">
-          </div>
-        </div>
-
-        <div class="form-group row mb-3">
-          <label for="category" class="col-sm-2 col-form-label-lg">餐廳類別</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="category" name="category" placeholder="中東料理、日本料理..." required>
-          </div>
-          <label for="category" class="col-sm-1 col-form-label-lg text-danger">*</label>
-        </div>
-
-        <div class="form-group row mb-3">
-          <label for="image" class="col-sm-2 col-form-label-lg">餐廳照片網址</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="image" name="image"
-              placeholder="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/5632/06.jpg" required>
-          </div>
-          <label for="image" class="col-sm-1 col-form-label-lg text-danger">*</label>
-        </div>
-
-        <div class="form-group row mb-3">
-          <label for="location" class="col-sm-2 col-form-label-lg">餐廳地址</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="location" name="location" placeholder="台北市中正區...">
-          </div>
-        </div>
-
-        <div class="form-group row mb-3">
-          <label for="phone" class="col-sm-2 col-form-label-lg">餐廳電話</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="phone" name="phone" placeholder="02-234...">
-          </div>
-        </div>
-
-        <div class="form-group row mb-3">
-          <label for="google_map" class="col-sm-2 col-form-label-lg">Google map</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="google_map" name="google_map"
-              placeholder="https://goo.gl/maps/6Lq7U2ahp152">
-          </div>
-        </div>
-
-        <div class="form-group row mb-3">
-          <label for="rating" class="col-sm-2 col-form-label-lg">餐廳評分</label>
-          <div class="col-sm-9">
-            <input type="number" class="form-control" id="rating" name="rating" min="0" max="5" step="0.1"
-              placeholder="4.6" required>
-          </div>
-          <label for="rating" class="col-sm-1 col-form-label-lg text-danger">*</label>
-        </div>
-
-        <div class="form-group row mb-3">
-          <label for="description" class="col-sm-2 col-form-label-lg">餐廳簡介</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" id="description" name="description" placeholder="本餐廳以...">
-          </div>
-        </div>
-
-        <div class="row justify-content-center mb-5">
-          <button class="btn btn-primary" type="submit">Create</button>
-        </div>
-      </form>
+<form class="row col-10 mx-auto justify-content-center needs-validation" action="/restaurants" method="POST" novalidate>
+  <div class="form-group col-5">
+    <i class="fas fa-utensils mr-1"></i>
+    <label for="name" class="col-form-label-lg">餐廳名稱 <sup class="text-danger">&#8727</sup></label>
+    <input type="text" class="form-control" id="name" name="name" placeholder="請輸入餐廳名稱" required
+        pattern="[A-Za-z\u4E00-\u9FA5 ]*">
+    <div id="name" class="invalid-feedback">
+      &#9888 餐廳名稱為必填
     </div>
   </div>
-</div>
+
+  <div class="form-group col-5">
+    <i class="fas fa-utensils mr-1"></i>
+    <label for="name_en" class="col-form-label-lg">餐廳英文名稱(選填)</label>
+    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="只可輸入英文" pattern="[A-Za-z ]*">
+    <div id="name_en" class="invalid-feedback">
+      &#9888 此欄位只能輸入英文
+    </div>
+  </div>
+  
+  <div class="form-group col-5">
+    <i class="fas fa-phone mr-1"></i>
+    <label for="phone" class="col-form-label-lg">餐廳電話(選填)</label>
+    <input type="text" class="form-control" id="phone" name="phone" placeholder="02 7777 9999" pattern="\d{2,4} \d{3,4} \d{2,4}"> 
+    <div id="phone" class="invalid-feedback">
+      &#9888 請符合此電話格式02 7777 9999
+    </div>
+  </div>
+
+  <div class="form-group col-5">
+    <i class="fab fa-google mr-1"></i>
+    <label for="google_map" class="col-form-label-lg">Google map(選填)</label>
+    <input type="text" class="form-control" id="google_map" name="google_map"
+      placeholder="https://goo.gl/maps/6Lq7U2ahp152(若無則免填)" pattern="https://goo.gl/maps/.*">
+    <div id="google_map" class="invalid-feedback">
+      &#9888 需使用google_map網址格式
+    </div>
+  </div>
+
+  <div class="form-group col-5">
+    <i class="fas fa-clipboard-check mr-1"></i>
+    <label for="category" class="col-form-label-lg">餐廳類別 <sup class="text-danger">&#8727</sup></label>
+    <select name="category" id="category" class="form-control" required>
+      <option value="">選擇...</option>
+      <option value="中東餐廳">中東餐廳</option>
+      <option value="中式餐廳">中式餐廳</option>
+      <option value="義式餐廳">義式餐廳</option>
+      <option value="日本餐廳">日本餐廳</option>
+      <option value="美式餐廳">美式餐廳</option>
+      <option value="飲料店">飲料店</option>
+      <option value="酒吧">酒吧</option>
+      <option value="咖啡">咖啡</option>
+      <option value="其他">其他</option>
+    </select>
+    <div id="category" class="invalid-feedback">
+      請選擇一種餐廳類別
+    </div>
+  </div>
+
+  <div class="form-group col-5">
+    <i class="fas fa-heart mr-1"></i>
+    <label for="rating" class="col-form-label-lg">餐廳評分 <sup class="text-danger">&#8727</sup></label>
+      <div class="rating">
+        <input id="star5" name="rating" type="radio" value="5" class="form-control radio-btn" hidden required>
+        <label for="star5">☆</label>
+        <input id="star4" name="rating" type="radio" value="4" class="form-control radio-btn" hidden>
+        <label for="star4">☆</label>
+        <input id="star3" name="rating" type="radio" value="3" class="form-control radio-btn" hidden>
+        <label for="star3">☆</label>
+        <input id="star2" name="rating" type="radio" value="2" class="form-control radio-btn" hidden>
+        <label for="star2">☆</label>
+        <input id="star1" name="rating" type="radio" value="1" class="form-control radio-btn" hidden>
+        <label for="star1">☆</label>
+      </div>
+  </div>
+
+  <div class="form-group col-10">
+    <i class="fas fa-home mr-1"></i>
+    <label for="location" class="col-form-label-lg">餐廳地址(選填)</label>
+    <input type="text" class="form-control" id="location" name="location" placeholder="台北市中正區...">
+  </div>
+
+  <div class="form-group col-10">
+    <i class="fas fa-image mr-1"></i>
+    <label for="image" class="col-form-label-lg">餐廳照片(選填)</label>
+    <input type="text" id="image" class="form-control" name="image">
+  </div>
+
+  <div class="form-group col-10">
+    <i class="fas fa-highlighter mr-1"></i>
+    <label for="description" class="col-form-label-lg">餐廳簡介(選填)</label>
+    <textarea class="form-control" id="description" name="description" placeholder="本餐廳以..."></textarea>
+  </div>
+
+  <div class="col-10 text-center my-3">
+    <button class="btn btn-primary" type="submit" id="submit">Create</button>
+  </div>
+</form>
+
+<!-- 驗證表單 -->
+<script src="/javascripts/form-validity.js"></script>

@@ -102,3 +102,39 @@ header {
   }
   
 }
+
+/* 評價相關設定 */
+.rating {
+  width: 170px; 
+} 
+
+/* 未點擊星星狀態 */
+.rating > label { 
+  font-size: 30px;
+  float: right; 
+  display: inline; 
+  padding: 0; 
+  margin-top: -5px; 
+  position: relative; 
+  width: 1.0em; 
+  cursor: pointer; 
+  color: #000; 
+} 
+
+/* 選擇的星星右邊星星顏色透明 */
+.rating > label:hover, 
+.rating > label:hover ~ label, 
+.rating > input.radio-btn:checked ~ label { 
+  color: transparent; 
+} 
+
+/* 選擇的星星左邊星星都著色 */
+.rating > label:hover:before, 
+.rating > label:hover ~ label:before, 
+.rating > input.radio-btn:checked ~ label:before, 
+.rating > input.radio-btn:checked ~ label:before { 
+  content: "\2605"; 
+  position: absolute; 
+  left: 0; 
+  color: #ff7300f3; 
+} 

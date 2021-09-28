@@ -20,7 +20,9 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
+  const { name, name_en, category, location, phone, google_map, rating, description } = req.body
+  // 如果使用者沒有存入圖片，就存預設圖片網址
+  const image = req.query.image || "https://discountflooringsupplies.com.au/wp-content/uploads/blank-img.jpg"
   return Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
