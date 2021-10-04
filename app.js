@@ -22,7 +22,12 @@ require('./config/mongoose')
 app.use(express.urlencoded({ extended: true }))
 
 // setting template engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main', 
+  // express-handlebars helpers setting
+  helpers: {
+    isEqual: function (a, b) { return a === b }
+  } }))
 app.set('view engine', 'handlebars')
 
 // setting static files
