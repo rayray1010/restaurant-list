@@ -1,27 +1,17 @@
 // 啟用strict mode
 'use strict'
 
-// 載入express
+// 載入所需套件
 const express = require('express')
+const exphbs = require('express-handlebars')
+const methodOverride = require('method-override')
+const routes = require('./routes')
+require('./config/mongoose')
+
+// 套件相關setting
 const app = express()
 const port = 3000
 
-// 載入express-handlebars
-const exphbs = require('express-handlebars')
-
-// 載入method-override
-const methodOverride = require('method-override')
-
-// 載入routes
-const routes = require('./routes')
-
-// 載入mongoose 設定檔
-require('./config/mongoose')
-
-// setting body-parser
-app.use(express.urlencoded({ extended: true }))
-
-// setting template engine
 app.engine('handlebars', exphbs({
   defaultLayout: 'main', 
   // express-handlebars helpers setting
@@ -30,10 +20,8 @@ app.engine('handlebars', exphbs({
   } }))
 app.set('view engine', 'handlebars')
 
-// setting static files
+app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
-
-// setting method-override
 app.use(methodOverride('_method'))
 
 // routes setting
