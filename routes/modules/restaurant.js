@@ -7,8 +7,9 @@ const Restaurant = require('../../models/restaurant')
 
 // restaurant-info routes setting
 router.get('/:restaurantId/detail', (req, res) => {
-  const id = req.params.restaurantId
-  return Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.restaurantId
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render('show', { restaurant }))
     .catch(error => console.log(error))
@@ -23,44 +24,36 @@ router.post('/', (req, res) => {
   const { name, name_en, category, location, phone, google_map, rating, description } = req.body
   // 如果使用者沒有存入圖片，就存預設圖片網址
   const image = req.body.image || "https://discountflooringsupplies.com.au/wp-content/uploads/blank-img.jpg"
-  return Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description })
+  const userId = req.user._id
+  return Restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description, userId })
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
 // edit restaurant routes setting
 router.get('/:restaurantId/edit', (req, res) => {
-  const id = req.params.restaurantId
-  return Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.restaurantId
+  return Restaurant.findOne({ _id, userId })
     .lean()
     .then(restaurant => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
 })
 
 router.put('/:restaurantId', (req, res) => {
-  const id = req.params.restaurantId
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
-  return Restaurant.findById(id)
-    .then(restaurant => {
-      restaurant.name = name
-      restaurant.name_en = name_en
-      restaurant.category = category
-      restaurant.image = image
-      restaurant.location = location
-      restaurant.phone = phone
-      restaurant.google_map = google_map
-      restaurant.rating = rating
-      restaurant.description = description
-      return restaurant.save()
-    })
+  const userId = req.user._id
+  const _id = req.params.restaurantId
+  return Restaurant.findOneAndUpdate({ _id, userId }, { $set: req.body })
     .then(() => res.redirect('/'))
-    .catch(error => console.log(error))
+    .catch(err => console.log(err))
 })
 
 // delete restaurant route setting
 router.delete('/:restaurantId', (req, res) => {
-  const id = req.params.restaurantId
-  return Restaurant.findById(id)
+  const userId = req.user._id
+  const _id = req.params.restaurantId
+  return Restaurant.findOne({ _id, userId })
     .then(restaurant => restaurant.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
@@ -86,8 +79,8 @@ router.get('/sort', (req, res) => {
     case 'rating': rating = true
   }
   sort = order + sort // 如果order是desc，傳入底下sort中就會是"-name" or "-rating"就會進行降冪排列
-
-  return Restaurant.find()
+  const userId = req.user._id
+  return Restaurant.find({ userId })
     .lean()
     .sort(sort)
     .then(restaurant => res.render('index', { restaurant, name, rating, asc, desc }))
@@ -96,9 +89,10 @@ router.get('/sort', (req, res) => {
 
 // search results routes setting
 router.get('/search', (req, res) => {
+  const userId = req.user._id
   const keyword = req.query.keyword
   const keywordRegex = new RegExp(keyword, 'i')
-  return Restaurant.find({ $or: [{ name: { $regex: keywordRegex } }, { category: { $regex: keywordRegex } }] })
+  return Restaurant.find({ $and: [{ userId }, { $or: [{ name: { $regex: keywordRegex } }, { category: { $regex: keywordRegex } }] }] })
     .lean()
     .then(restaurant => res.render('index', { restaurant, keyword }))
     .catch(error => console.log(error))

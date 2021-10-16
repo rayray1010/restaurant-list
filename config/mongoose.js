@@ -2,7 +2,7 @@
 const mongoose = require('mongoose')
 
 // setting mongoose
-mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false })
 
 // return mongodb connect info
 const db = mongoose.connection
