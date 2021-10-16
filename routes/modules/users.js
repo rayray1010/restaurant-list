@@ -11,7 +11,8 @@ router.get('/login', (req, res) => {
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/users/login'
+  failureRedirect: '/users/login',
+  failureFlash: true
 }))
 
 // register routes setting
@@ -21,10 +22,20 @@ router.get('/register', (req, res) => {
 
 router.post('/register', (req, res) => {
   const { name, email, password, confirmPassword } = req.body
+  const errors = []
+  if (!name || !email || !password || !confirmPassword) {
+    errors.push({ message: '所有欄位皆是必填' })
+  }
+  if (password !== confirmPassword) {
+    errors.push({ message: '密碼與確認密碼不相同' })
+  }
+  if (errors.length) {
+    res.render('register', { layout: 'loginRegister', errors, name, email, password, confirmPassword })
+  }
   User.findOne({ email }).then(user => {
     if (user) {
-      console.log('The email already exists!')
-      res.render('register', { layout: 'loginRegister', name, email, password, confirmPassword })
+      errors.push({ message: '此Email已經註冊過了' })
+      res.render('register', { layout: 'loginRegister', errors, name, email, password, confirmPassword })
     } else {
       User.create({
         name,
@@ -40,7 +51,8 @@ router.post('/register', (req, res) => {
 // logout routes setting
 router.get('/logout', (req, res) => {
   req.logout()
-  res.redirect('/users.login')
+  req.flash('success_msg', '您已經成功登出帳號')
+  res.redirect('/users/login')
 })
 
 // router export
