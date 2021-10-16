@@ -1,6 +1,11 @@
 // 啟用strict mode
 'use strict'
 
+// 如果不是本地開發環境就載入.env
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 // 載入所需套件
 const express = require('express')
 const session = require('express-session')
@@ -13,7 +18,7 @@ const flash = require('connect-flash')
 
 // 套件相關setting
 const app = express()
-const port = 3000
+const PORT = process.env.PORT
 
 app.engine('handlebars', exphbs({
   defaultLayout: 'main',
@@ -25,7 +30,7 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars')
 
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -49,6 +54,6 @@ app.use((req, res, next) => {
 app.use(routes)
 
 // Listen the server when it started
-app.listen(port, () => {
-  console.log(`Express is listening on localhost:${port}`)
+app.listen(PORT, () => {
+  console.log(`Express is listening on localhost:${PORT}`)
 })
